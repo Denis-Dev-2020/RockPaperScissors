@@ -50,7 +50,7 @@ public class Game {
 			Table2D[i+1][6] = score ;                            //   <--------- Previous Game Who Won (RetroSpective)
 			if (score == 2) {                                         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				Table2D[i+1][7] = Negative(Player2.type);//
-			}else if (score == 1) {                                 //   <--------- Previous Game What Wins Previous Winner (RetroSpective)
+			}else if (score == 1) {                                 //   <--------- What Wins Previous Winner (RetroSpective)
 				Table2D[i+1][7] = Negative(Bot.type);      //
 			}                                                              //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -78,7 +78,7 @@ public class Game {
 				+ " |  What Wins Bot "
 				+ " |  What Wins Player "
 				+ " |  Previous Game Who Won "
-				+ " |  Previous Game What Wins Previous Winner"
+				+ " |  What Wins Previous Winner"
 				+ "\n");
 		for (int i = 0; i < 10; i++) {
 			System.out.println(Arrays.toString(Table2D[i]));
