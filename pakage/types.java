@@ -31,7 +31,7 @@ public class types {
 		//``````````` IF DRAW `````````````````````````````````````````````````````````````````````````````````````````````//
 		if (Player.type == this.type) {
 			System.out.println("*** DRAW *** ");
-			//System.out.println("Bot = "+this.s+"        Player = "+Player.s);                          //<---- Eyes
+			System.out.println("Bot = "+this.s+"        Player = "+Player.s);                          //<---- Eyes
 			return 0;
 		//````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````//
 		}else {
@@ -39,11 +39,11 @@ public class types {
 		if (this.type == 1) {
 			if (Player.type == 2) {
 				System.out.println("Bot Lose");
-			//	System.out.println("Computer = "+this.s+"        Player = "+Player.s);              //<---- Eyes
+				System.out.println("Computer = "+this.s+"        Player = "+Player.s);              //<---- Eyes
 				return 2;
 			}else {
 				System.out.println("Bot Win");
-		   //System.out.println("Computer = "+this.s+"        Player = "+Player.s);                 //<---- Eyes
+		   System.out.println("Computer = "+this.s+"        Player = "+Player.s);                 //<---- Eyes
 				return 1;
 			}
 		}
@@ -52,11 +52,11 @@ public class types {
 		if (this.type == 2) {
 			if (Player.type == 3) {
 				System.out.println("Bot Lose");
-			//	System.out.println("Computer = "+this.s+"        Player = "+Player.s);              //<---- Eyes
+				System.out.println("Computer = "+this.s+"        Player = "+Player.s);              //<---- Eyes
 				return 2;
 			}else {
 				System.out.println("Bot Win");
-			//	System.out.println("Computer = "+this.s+"        Player = "+Player.s);              //<---- Eyes
+				System.out.println("Computer = "+this.s+"        Player = "+Player.s);              //<---- Eyes
 				return 1;
 			}
 		}
@@ -65,16 +65,16 @@ public class types {
 		if (this.type == 3) {
 			if (Player.type == 1) {
 				System.out.println("Bot Lose");
-			//	System.out.println("Computer = "+this.s+"        Player = "+Player.s);              //<---- Eyes
+				System.out.println("Computer = "+this.s+"        Player = "+Player.s);              //<---- Eyes
 				return 2;
 			}else {
 				System.out.println("Bot Win");
-			//	System.out.println("Computer = "+this.s+"        Player = "+Player.s);              //<---- Eyes
+				System.out.println("Computer = "+this.s+"        Player = "+Player.s);              //<---- Eyes
 				return 1;
 			}
 		}
 		//````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````//
-	//	System.out.println("Computer = "+this.s+"        Player = "+Player.s);                      //<---- Eyes
+		System.out.println("Computer = "+this.s+"        Player = "+Player.s);                      //<---- Eyes
 		}
 		return 0;	
 	}
