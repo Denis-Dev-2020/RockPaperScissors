@@ -19,20 +19,141 @@ public class Game {
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	//////////////////////////////// STATISTICAL & PSYCHOLOGICAL GUESS ////////////////////////////////////////////////////////////////////
+	public static int Guess (int a[][]) {
+
+		int Log20[][] = ArrayManipulation.CopyOnlyLast20Rows(a);
+		int guess1 = 0;
+		int guess2 = 0;
+		int DidntAppearLongTime = 0;
+		int AppearedTooMuch = 0;
+		int RockStat[] = ArrayManipulation.Col2Row(Log20,14,0,19);
+		int RockStats[] = ArrayManipulation.Array1DStatisticProccessing(RockStat);
+		int PaperStat[] = ArrayManipulation.Col2Row(Log20,15,0,19);
+		int PaperStats[] = ArrayManipulation.Array1DStatisticProccessing(PaperStat);
+		int ScissorsStat[] = ArrayManipulation.Col2Row(Log20,16,0,19);
+		int ScissorsStats[] = ArrayManipulation.Array1DStatisticProccessing(ScissorsStat);
+		int RockMissing10Lines = 0;
+		int PaperMissing10Lines = 0;
+		int ScissorsMissing10Lines = 0;
+		
+		int guessPercantageRock = 0;
+		int guessPercantagePaper = 0;
+		int guessPercantageScissors = 0;
+		
+		/*
+		System.out.println("______________________________________________");
+		for (int k = 0; k < Log20.length; k++) {
+			System.out.println(Arrays.toString(Log20[k]));
+		}
+		System.out.println("______________________________________________");
+		*/
+		
+		
+		if ((RockStats[0]+PaperStats[0]+ScissorsStats[0]) == 0) {
+			if ((RockStats[1]+PaperStats[1]+ScissorsStats[1]) >0 ) {
+				DidntAppearLongTime = ArrayManipulation.LargestOutof3(RockStats[1],PaperStats[1],ScissorsStats[1]);
+			}else if ((RockStats[2]+PaperStats[2]+ScissorsStats[2])  > 0 ) {
+				AppearedTooMuch = ArrayManipulation.LargestOutof3(RockStats[1],PaperStats[1],ScissorsStats[1]);
+			}
+		}else if ((RockStats[0]+PaperStats[0]+ScissorsStats[0]) >= 1) {
+			for (int q = 1; q < Log20.length; q++) {
+				for (int w = 14; w < Log20[0].length; w++) {
+					if (Log20[q][w]==0) {
+					int temp = ArrayManipulation.SmallestOutof3(Log20[q-1][w],Log20[q-1][w+1],Log20[q-1][w+2]);
+					if (temp == 1) {
+						RockMissing10Lines = 1;
+					}else if (temp == 2) {
+						PaperMissing10Lines = 1;
+					}else if (temp ==3) {
+						ScissorsMissing10Lines = 1;
+					}
+					break;}
+				}
+			}
+		}
+		/*     //  <-----  Eyes
+		System.out.println("\nRockMissing10Lines = "+RockMissing10Lines+"\nPaperMissing10Lines = "+PaperMissing10Lines+"\nScissorsMissing10Lines = "+ScissorsMissing10Lines);
+		System.out.println("DidntAppearLongTime = "+DidntAppearLongTime+"\nAppearedTooMuch = "+AppearedTooMuch);
+		 */
+
+		//###### when player wins they tend to play the same move ##################################//
+		//###### when player lose they tend to play the move that would beat their previous move ##########//
+		if (Log20[Log20.length-2][3] == 2) {
+			guess1 = Log20[Log20.length-2][2];
+			if (guess1==1) {
+				guessPercantageRock = guessPercantageRock+24;
+			}else if (guess1==2) {
+				guessPercantagePaper = guessPercantagePaper+24;
+			}else if (guess1==3) {
+				guessPercantageScissors = guessPercantageScissors+24;
+			}
+		}else if (Log20[Log20.length-2][3] == 1) {
+			guess2 = Negative(Log20[Log20.length-2][2]);
+			if (guess2==1) {
+				guessPercantageRock = guessPercantageRock+24;
+			}else if (guess2==2) {
+				guessPercantagePaper = guessPercantagePaper+24;
+			}else if (guess2==3) {
+				guessPercantageScissors = guessPercantageScissors+24;
+			}
+		}
+		//####################################################################################//
+		
+		//################# final percantage calculation ###########################//
+		if (RockMissing10Lines>0) {
+			guessPercantageRock = guessPercantageRock+51;
+		}
+		if (PaperMissing10Lines>0) {
+			guessPercantagePaper = guessPercantagePaper+51;
+		}
+		if (ScissorsMissing10Lines>0) {
+			guessPercantageScissors = guessPercantageScissors+51;
+		}
+
+		if (DidntAppearLongTime==1) {
+			guessPercantageRock = guessPercantageRock+16;
+		}else if (DidntAppearLongTime==2) {
+			guessPercantagePaper = guessPercantagePaper+16;
+		}else if (DidntAppearLongTime==3) {
+			guessPercantageScissors = guessPercantageScissors+16;
+		}
+
+		if (AppearedTooMuch==1) {
+			guessPercantageRock = guessPercantageRock-16;
+		}else if (AppearedTooMuch==2) {
+			guessPercantagePaper = guessPercantagePaper-16;
+		}else if (AppearedTooMuch==3) {
+			guessPercantageScissors = guessPercantageScissors-16;
+		}
+		
+		//###################################################################//
+		System.out.println("Guess : Rock "+guessPercantageRock+"%    Paper "+guessPercantagePaper+"%    Scissors "+guessPercantageScissors+"%");   //  <----  Eyes
+		return ArrayManipulation.LargestOutof3(guessPercantageRock,guessPercantagePaper,guessPercantageScissors);
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 	public static void main(String[] args) {
 
 		for (int i = 0; i < 70 ; i++) {
 			//@@@@@@@@@@@@@@@@ START " i " NUMBER OF GAMES @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 			//~~~~~~~~ BOT IS RANDOM ~~~~~~~~~~//
-			types Bot = new types (((int)(Math.random()*3)+1));
+			types Bot;
+			if (i>40) {
+				Bot = new types (Negative(Guess(Table2D)));	
+			}else {
+				Bot = new types (((int)(Math.random()*3)+1));
+			}			
 			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 			//~~~~~~~~ PLAYER'S CHOISE ~~~~~~~~~//
 			int number = 0;
 			while (!(number >0 && number < 4)) {
-				number = ((int)(Math.random()*3)+1); // <--- Random
-				//number = MyConsole.readInt("");   //   <--- Human Selection
+				//number = ((int)(Math.random()*3)+1); // <--- Random
+				number = MyConsole.readInt("");   //   <--- Human Selection
 			}
 			types Player2 = new types (number);
 			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -117,11 +238,21 @@ public class Game {
 				+ " |  Previous Game Who Won "
 				+ " |  What Wins Previous Winner"
 				+ "\n");
-		for (int i = 10; i < 60; i++) {
-			System.out.println(Arrays.toString(Table2D[i]));
-		}
+
 		System.out.println("Score ->  Bot :"+totalBotWins+"     Player2 :"+totalPlayerWins);
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+
+		//~~~~~~~~~~~~~~~~~~~ GUESS ~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+		System.out.println(Guess(Table2D));
+
+
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+
+
+
 
 	}       // <------- MAIN CLOSE BRACET
 }           // <------- WHOLE CLASS CLOSE BRACET
