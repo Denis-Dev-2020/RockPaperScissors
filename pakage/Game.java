@@ -21,17 +21,18 @@ public class Game {
 
 	public static void main(String[] args) {
 
-		for (int i = 0; i < 20 ; i++) {
+		for (int i = 0; i < 100 ; i++) {
 			//@@@@@@@@@@@@@@@@ START " i " NUMBER OF GAMES @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 			
 			//~~~~~~~~ BOT IS RANDOM ~~~~~~~~~~//
 			types Bot = new types (((int)(Math.random()*3)+1));
 			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 			
-			//~~~~~~~ PLAYER IS RANDOM ~~~~~~~~//
+			//~~~~~~~~ PLAYER'S CHOISE ~~~~~~~~~//
 			int number = 0;
 			while (!(number >0 && number < 4)) {
-				number = ((int)(Math.random()*3)+1);
+				//number = ((int)(Math.random()*3)+1); <--- Random
+				number = MyConsole.readInt("");   //   <--- Human Selection
 			}
 			types Player2 = new types (number);
 			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -80,7 +81,7 @@ public class Game {
 				+ " |  Previous Game Who Won "
 				+ " |  What Wins Previous Winner"
 				+ "\n");
-		for (int i = 0; i < 10; i++) {
+		for (int i = 10; i < 90; i++) {
 			System.out.println(Arrays.toString(Table2D[i]));
 		}
 		System.out.println("Score ->  Bot :"+totalBotWins+"     Player2 :"+totalPlayerWins);
